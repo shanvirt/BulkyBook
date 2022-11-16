@@ -39,6 +39,7 @@ namespace BulkyBook
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddIdentity<IdentityUser,IdentityRole>().AddDefaultTokenProviders()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddSingleton<IEmailSender, EmailSender>();
@@ -83,7 +84,7 @@ namespace BulkyBook
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
+                app.UseMigrationsEndPoint();
             }
             else
             {
